@@ -135,15 +135,15 @@ export async function authenticate(
     
     console.log('res',res);
   } catch (error) {
-    console.log('error',error)
-    // if (error instanceof AuthError) {
-      switch (error.type) {
+    // console.log('error',error)
+    if (error instanceof AuthError) {
+      switch (erro.type) {
         case 'CredentialsSignin':
           return 'Invalid credentials.';
         default:
           return 'Something went wrong.';
       }
-    // }
+    }
     throw error;
   }
 }
