@@ -6,6 +6,12 @@ import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import  AuthError from 'next-auth';
 
+type AuthError = {
+  type: 'CredentialsSignin' | 'CredentialsCallback' | 'OAuthCallback';
+  message: string;
+};
+
+
 const FormSchema = z.object({
   id: z.string(),
   customerId: z.string({
@@ -137,7 +143,7 @@ export async function authenticate(
   } catch (error) {
     // console.log('error',error)
     if (error instanceof AuthError) {
-      switch (erro.type) {
+      switch (error.type) {
         case 'CredentialsSignin':
           return 'Invalid credentials.';
         default:
@@ -147,7 +153,3 @@ export async function authenticate(
     throw error;
   }
 }
-
-
-
- 
